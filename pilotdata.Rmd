@@ -1,0 +1,48 @@
+---
+title: "pilotdata"
+output: html_document
+---
+
+
+```{r}
+library(readxl)
+DataAveragePilotdata <- read_excel("data/DataAveragePilotdata.xlsx")
+View(DataAveragePilotdata)
+```
+
+```{r}
+library(readr)
+X17_56_Sweep <- read_delim("data/17-56 Sweep.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE, 
+    skip = 11)
+```
+
+
+
+```{r}
+library(tidyverse)
+dat <- DataAveragePilotdata %>%
+  select(`Time[s]`,`Time[hh:mm:ss]`,`VO2[mL/kg/min]`, `VO2[mL/min]`,`HR[bpm]`,`Ve[L/min]`)
+                                                  
+dat %>%
+  group_by(as.integer(dat$`Time[s]`/20)) %>% 
+  print()
+        
+```
+```{r}
+data <- X17_56_Sweep %>%
+  select(`Time (s)`,`Push force (kg)`,`Pull force (kg)`,SPI,`Frequency (Hz)`) %>%
+  group_by(as.integer(data$`Time (s)`/20)) %>%
+  print()
+```
+```{r}
+library(readr)
+X20_03_Sweep <- read_delim("data/20-03 Sweep.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE, 
+    skip = 11)
+View(X20_03_Sweep)
+
+X10_02_Sweep %>%
+  select(`Time (s)`,SPI)
+```
+
