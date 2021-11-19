@@ -33,8 +33,11 @@ dat %>%
 data <- X17_56_Sweep %>%
   select(`Time (s)`,`Push force (kg)`,`Pull force (kg)`,SPI,`Frequency (Hz)`) %>%
   group_by(as.integer(data$`Time (s)`/20)) %>%
+  summarise(m = mean(SPI) %>%
   print()
 ```
+
+
 ```{r}
 library(readr)
 X20_03_Sweep <- read_delim("data/20-03 Sweep.csv", 
