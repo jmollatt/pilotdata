@@ -25,16 +25,24 @@ dat <- DataAveragePilotdata %>%
   select(`Time[s]`,`Time[hh:mm:ss]`,`VO2[mL/kg/min]`, `VO2[mL/min]`,`HR[bpm]`,`Ve[L/min]`)
                                                   
 dat %>%
-  group_by(as.integer(dat$`Time[s]`/20)) %>% 
-  print()
+  mutate(interval = as.integer(dat$`Time[s]`/20)) %>% 
+  group_by(interval) %>%
+  summarise(m = mean(`VO2[mL/min]`)) %>%
+              print()
+              
+            
+
+              
+              
         
 ```
+
+
 ```{r}
 data <- X17_56_Sweep %>%
   select(`Time (s)`,`Push force (kg)`,`Pull force (kg)`,SPI,`Frequency (Hz)`) %>%
-  group_by(as.integer(data$`Time (s)`/20)) %>%
-  summarise(m = mean(SPI) %>%
-  print()
+  group_by(as.integer(data$`Time (s)`/20))
+ 
 ```
 
 
@@ -45,7 +53,13 @@ X20_03_Sweep <- read_delim("data/20-03 Sweep.csv",
     skip = 11)
 View(X20_03_Sweep)
 
-X10_02_Sweep %>%
+data <- X20_03_Sweep %>%
   select(`Time (s)`,SPI)
+
+data %>%
+  mutate(interval = as.integer(data$`Time (s)`/20)) %>% 
+  group_by(interval) %>%
+  summarise(m = mean(SPI)) %>%
+              print()
 ```
 
